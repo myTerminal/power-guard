@@ -45,13 +45,20 @@ manpage:
 	sudo rsync ./man/power-guard.1 $(MANPREFIX)/man1/
 	@echo "Manpage created!"
 
-install: sbcl quicklisp binary place manpage
+service:
+	sudo mkdir /etc/sv/power-guard
+	sudo ln -s $(PREFIX)/bin/power-guard /etc/sv/power-guard/run
+	sudo ln -s /etc/sv/power-guard /var/service
+
+install: sbcl quicklisp binary place manpage service
 	@echo "power-guard is now installed."
 
 uninstall:
 	@echo "Uninstalling foraget..."
 	sudo rm $(PREFIX)/bin/power-guard
 	sudo rm $(MANPREFIX)/man1/power-guard.1
+	sudo rm -rf /var/service/power-guard
+	sudo rm -rf /etc/sv/power-guard
 	@echo "power-guard has been uninstalled."
 
 reinstall: uninstall install
