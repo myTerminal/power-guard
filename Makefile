@@ -46,9 +46,11 @@ manpage:
 	@echo "Manpage created!"
 
 service:
+ifneq ($(shell command -v runit),)
 	sudo mkdir /etc/sv/power-guard
 	sudo ln -s $(PREFIX)/bin/power-guard /etc/sv/power-guard/run
 	sudo ln -s /etc/sv/power-guard /var/service
+endif
 
 install: sbcl quicklisp binary place manpage service
 	@echo "power-guard is now installed."
