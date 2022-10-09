@@ -1,3 +1,10 @@
+SHELL = /bin/sh
+
+ifeq ($(PREFIX),)
+    PREFIX := /usr/local
+endif
+MANPREFIX := $(PREFIX)/share/man
+
 help:
 	@echo "Use a command!"
 
@@ -28,5 +35,23 @@ binary:
 	@echo "Generating binary"
 	sbcl --non-interactive --load build.lisp
 
-setup: sbcl quicklisp binary
+place:
+	@echo "Installing binary"
+	sudo install ./power-guard-bin $(PREFIX)/bin/power-guard
+	@echo "Binary installed!"
+
+manpage:
+	@echo "Creating manpage..."
+	sudo rsync ./man/power-guard.1 $(MANPREFIX)/man1/
+	@echo "Manpage created!"
+
+install: sbcl quicklisp binary place manpage
 	@echo "power-guard is now installed."
+
+uninstall:
+	@echo "Uninstalling foraget..."
+	sudo rm $(PREFIX)/bin/power-guard
+	sudo rm $(MANPREFIX)/man1/power-guard.1
+	@echo "power-guard has been uninstalled."
+
+reinstall: uninstall install
