@@ -5,7 +5,7 @@
 
 (defun run-check (battery-threshold)
   "Runs the monitoring routine."
-  (if (< (get-battery-level) (parse-integer battery-threshold))
+  (if (< (get-remaining-charge) (parse-integer battery-threshold))
       (progn
         (princ "Power below set threshold! Suspending...")
         (fresh-line)

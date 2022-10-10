@@ -18,3 +18,8 @@ underlying system."
                     :output '(:string :stripped t)
                     :error-output t
                     :ignore-error-status t))
+
+(defun get-list-from-system (command-string)
+  "Executes the supplied command string in the underlying system and returns
+a list."
+  (string-to-list (get-result-from-system command-string)))
