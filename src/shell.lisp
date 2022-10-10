@@ -3,6 +3,11 @@
 
 (in-package :shell)
 
+(defun log-to-stdout (text)
+  "Logs the supplied text to stdout."
+  (princ text)
+  (fresh-line))
+
 (defun execute-in-system (command-string)
   "Executes the supplied command in the underlying system."
   (uiop:run-program command-string

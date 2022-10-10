@@ -6,7 +6,8 @@
   (:use :cl)
   (:import-from :utils
                 :string-to-list)
-  (:export :execute-in-system
+  (:export :log-to-stdout
+           :execute-in-system
            :get-result-from-system
            :get-list-from-system))
 
@@ -26,6 +27,7 @@
 (defpackage :main
   (:use :cl)
   (:import-from :shell
+                :log-to-stdout
                 :execute-in-system)
   (:import-from :system
                 :suspend-system)

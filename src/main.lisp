@@ -7,12 +7,9 @@
   "Runs the monitoring routine."
   (if (< (get-remaining-charge) (parse-integer battery-threshold))
       (progn
-        (princ "Power below set threshold! Suspending...")
-        (fresh-line)
+        (log-to-stdout "Power below set threshold! Suspending...")
         (suspend-system))
-      (progn
-        (princ "Power looks OK.")
-        (fresh-line))))
+      (log-to-stdout "Power looks OK.")))
 
 (defun main ()
   "The main entry point to the program."
