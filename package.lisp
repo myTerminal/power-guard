@@ -10,6 +10,12 @@
            :get-result-from-system
            :get-list-from-system))
 
+(defpackage :system
+  (:use :cl)
+  (:import-from :shell
+                :execute-in-system)
+  (:export :suspend-system))
+
 (defpackage :hardware
   (:use :cl)
   (:import-from :shell
@@ -21,6 +27,8 @@
   (:use :cl)
   (:import-from :shell
                 :execute-in-system)
+  (:import-from :system
+                :suspend-system)
   (:import-from :hardware
                 :get-remaining-charge)
   (:export :main))

@@ -9,7 +9,7 @@
       (progn
         (princ "Power below set threshold! Suspending...")
         (fresh-line)
-        (execute-in-system "loginctl suspend"))
+        (suspend-system))
       (progn
         (princ "Power looks OK.")
         (fresh-line))))
