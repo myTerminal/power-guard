@@ -1,5 +1,5 @@
 ;;;; -------------------------------------------------------------------------
-;;;; system
+;;;; Functions to interact with the operating-system
 
 (in-package :system)
 

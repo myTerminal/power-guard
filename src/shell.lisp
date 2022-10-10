@@ -1,5 +1,5 @@
 ;;;; -------------------------------------------------------------------------
-;;;; shell
+;;;; Functions to interact with the shell
 
 (in-package :shell)
 

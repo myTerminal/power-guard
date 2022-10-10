@@ -1,5 +1,5 @@
 ;;;; -------------------------------------------------------------------------
-;;;; hardware
+;;;; Function to interact with the hardware
 
 (in-package :hardware)
 
