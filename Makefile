@@ -64,3 +64,8 @@ uninstall:
 	@echo "power-guard has been uninstalled."
 
 reinstall: uninstall install
+
+get-latest:
+	git pull origin main
+
+update: get-latest reinstall
