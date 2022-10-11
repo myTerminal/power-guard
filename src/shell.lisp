@@ -28,3 +28,10 @@ underlying system."
   "Executes the supplied command string in the underlying system and returns
 a list."
   (string-to-list (get-result-from-system command-string)))
+
+(defun exists-in-system-p (command-string)
+  "Returns whether the supplied command exists in the underlying system."
+  (not (string-equal (get-result-from-system (concatenate 'string
+                                                          "command -v "
+                                                          command-string))
+                     "")))

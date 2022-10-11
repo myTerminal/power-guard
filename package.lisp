@@ -9,12 +9,15 @@
   (:export :log-to-stdout
            :execute-in-system
            :get-result-from-system
-           :get-list-from-system))
+           :get-list-from-system
+           :exists-in-system-p))
 
 (defpackage :system
   (:use :cl)
   (:import-from :shell
-                :execute-in-system)
+                :log-to-stdout
+                :execute-in-system
+                :exists-in-system-p)
   (:export :suspend-system))
 
 (defpackage :hardware
