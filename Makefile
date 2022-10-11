@@ -18,8 +18,6 @@ else ifneq ($(shell command -v dnf),)
     sudo dnf install -y sbcl
 else ifneq ($(shell command -v apt),)
     sudo apt install -y sbcl
-else ifneq ($(shell command -v brew),)
-	brew install sbcl
 else ifneq ($(shell command -v sbcl),)
 	@echo "SBCL found!"
 else
