@@ -18,10 +18,10 @@ There are a few different ways to get *power-guard*.
 
 ### Compile from source
 
-    # Clone project to local workspace
+    # Clone project to the local workspace
     git clone https://github.com/myTerminal/power-guard.git
 
-    # Switch to project directory
+    # Switch to the project directory
     cd power-guard
 
     # Install with `make`
@@ -45,7 +45,7 @@ A simple way to use *power-guard* is to run it in a command-line terminal with n
 
     power-guard
 
-By default, it watches the remaining charge on the battery and suspends the computer when it drops below 10%. You can also optionally specifify the minimum threshold percentage of charge as an argument.
+By default, it watches the remaining charge on the battery and suspends the computer when it drops below 10%. You can also optionally specify the minimum threshold percentage of charge as an argument.
 
     power-guard 7
 
@@ -61,13 +61,21 @@ To learn more about usage, refer to `manpage`:
 
     man power-guard
 
-## External Dependency
+## External Dependencies
 
 Being written with Common Lisp, *power-guard* depends on [SBCL](https://www.sbcl.org). In most cases, it will be automatically installed while generating the binary, but if it doesn't please install it before running the installation.
 
+## Optional External Dependencies
+
+Below are a few more optional dependencies that are also attempted to be fetched during the installation:
+
+ - [beep](https://pkgs.org/search/?q=beep)
+
+ If not installed automatically, you may install them manually.
+
 ## To-do
 
-* Improve battery watching algorithm
+* Improve battery-watching algorithm
 * Improve reading of battery level, add support for more hardware types
 * Implement alternate methods of suspending the system
 * Add support for more init systems like SystemD, OpenRC, SysVinit, etc.
