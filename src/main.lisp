@@ -8,6 +8,8 @@
   (if (< (get-remaining-charge) (parse-integer battery-threshold))
       (progn
         (log-to-stdout "Power below set threshold! Suspending...")
+        (if (exists-in-system-p "beep")
+            (execute-in-system "beep -l 500"))
         (suspend-system))
       (log-to-stdout "Power looks OK.")))
 

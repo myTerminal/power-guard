@@ -31,7 +31,8 @@
   (:use :cl)
   (:import-from :shell
                 :log-to-stdout
-                :execute-in-system)
+                :execute-in-system
+                :exists-in-system-p)
   (:import-from :system
                 :suspend-system)
   (:import-from :hardware

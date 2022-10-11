@@ -24,6 +24,20 @@ else
 	@echo "Could not determine steps to install SBCL! Please install SBCL and try again."
 endif
 
+optional-deps:
+	@echo "Installing optional dependencies..."
+ifneq ($(shell command -v xbps-query),)
+	sudo xbps-install -Syu beep
+else ifneq ($(shell command -v beep),)
+	sudo pacman -Sy sbcl
+else ifneq ($(shell command -v beep),)
+	sudo dnf install -y sbcl
+else ifneq ($(shell command -v beep),)
+	sudo apt install -y sbcl
+else
+	@echo "Could not install optional dependencies! Please install manually."
+endif
+
 quicklisp:
 	curl https://beta.quicklisp.org/quicklisp.lisp -o /tmp/quicklisp.lisp
 	sbcl --load /tmp/quicklisp.lisp --non-interactive --eval "(quicklisp-quickstart:install)"
@@ -50,7 +64,7 @@ ifneq ($(shell command -v runit),)
 	sudo ln -s /etc/sv/power-guard /var/service
 endif
 
-install: sbcl quicklisp binary place manpage service
+install: sbcl optional-deps quicklisp binary place manpage service
 	@echo "power-guard is now installed."
 
 uninstall:
