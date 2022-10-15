@@ -10,7 +10,8 @@
            :execute-in-system
            :get-result-from-system
            :get-list-from-system
-           :exists-in-system-p))
+           :exists-in-system-p
+           :execute-if-exists))
 
 (defpackage :system
   (:use :cl)
@@ -31,8 +32,7 @@
   (:use :cl)
   (:import-from :shell
                 :log-to-stdout
-                :execute-in-system
-                :exists-in-system-p)
+                :execute-if-exists)
   (:import-from :system
                 :suspend-system)
   (:import-from :hardware

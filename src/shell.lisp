@@ -35,3 +35,11 @@ a list."
                                                           "command -v "
                                                           command-string))
                      "")))
+
+(defun execute-if-exists (command arguments-as-string)
+  "Executes the given command with supplied arguments, if it exists."
+  (if (exists-in-system-p command)
+      (execute-in-system (concatenate 'string
+                                      command
+                                      " "
+                                      arguments-as-string))))
