@@ -13,12 +13,20 @@
            :exists-in-system-p
            :execute-if-exists))
 
-(defpackage :system
+(defpackage :interface
   (:use :cl)
   (:import-from :shell
                 :log-to-stdout
+                :execute-if-exists)
+  (:export :log-to-user))
+
+(defpackage :system
+  (:use :cl)
+  (:import-from :shell
                 :execute-in-system
                 :exists-in-system-p)
+  (:import-from :interface
+                :log-to-user)
   (:export :suspend-system))
 
 (defpackage :hardware
@@ -33,6 +41,8 @@
   (:import-from :shell
                 :log-to-stdout
                 :execute-if-exists)
+  (:import-from :interface
+                :log-to-user)
   (:import-from :system
                 :suspend-system)
   (:import-from :hardware
