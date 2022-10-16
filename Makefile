@@ -36,7 +36,9 @@ endif
 
 optional-deps:
 	@echo "Installing optional dependencies..."
-ifneq ($(shell command -v xbps-query),)
+ifneq ($(shell command -v beep),)
+	@echo "'beep' found!"
+else ifneq ($(shell command -v xbps-query),)
 	sudo xbps-install -Syu beep
 else ifneq ($(shell command -v beep),)
 	sudo pacman -Sy sbcl
