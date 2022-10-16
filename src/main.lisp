@@ -14,6 +14,10 @@
 
 (defun main ()
   "The main entry point to the program."
+  (unless (get-batteries)
+    (progn
+      (log-to-stdout "No batteries installed on the system!")
+      (uiop:quit)))
   (let* ((args (uiop:command-line-arguments))
          (battery-threshold (parse-integer (or (car args)
                                                "10")))

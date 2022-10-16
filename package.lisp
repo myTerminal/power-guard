@@ -47,5 +47,6 @@
   (:import-from :system
                 :suspend-system)
   (:import-from :hardware
+                :get-batteries
                 :get-remaining-charge)
   (:export :main))
