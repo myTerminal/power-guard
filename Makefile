@@ -6,7 +6,11 @@ endif
 MANPREFIX := $(PREFIX)/share/man
 
 help:
-	@echo "Use a command!"
+	@echo "Use one of the following options:"
+	@echo " - install"
+	@echo " - uninstall"
+	@echo " - reinstall"
+	@echo " - update"
 
 primary-deps:
 	@echo "Making sure SBCL is installed..."
