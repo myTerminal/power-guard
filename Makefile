@@ -10,7 +10,9 @@ help:
 
 sbcl:
 	@echo "Making sure SBCL is installed..."
-ifneq ($(shell command -v xbps-query),)
+ifneq ($(shell command -v sbcl),)
+	@echo "SBCL found!"
+else ifneq ($(shell command -v xbps-query),)
 	sudo xbps-install -Syu sbcl
 else ifneq ($(shell command -v pacman),)
     sudo pacman -Sy sbcl
@@ -18,10 +20,9 @@ else ifneq ($(shell command -v dnf),)
     sudo dnf install -y sbcl
 else ifneq ($(shell command -v apt),)
     sudo apt install -y sbcl
-else ifneq ($(shell command -v sbcl),)
-	@echo "SBCL found!"
 else
 	@echo "Could not determine steps to install SBCL! Please install SBCL and try again."
+	exit 1
 endif
 
 primary-deps:
