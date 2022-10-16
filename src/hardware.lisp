@@ -26,10 +26,10 @@
   (let* ((batteries (get-list-from-system "find /sys/class/power_supply -name \"BAT*\""))
          (remaining-charges (get-battery-charges batteries))
          (total-capacities (get-battery-capacities batteries)))
-    (* 100
-       (/ (reduce (lambda (a b)
-                    (+ a b))
-                  remaining-charges)
-          (reduce (lambda (a b)
-                    (+ a b))
-                  total-capacities)))))
+    (floor (* 100
+              (/ (reduce (lambda (a b)
+                           (+ a b))
+                         remaining-charges)
+                 (reduce (lambda (a b)
+                           (+ a b))
+                         total-capacities))))))
