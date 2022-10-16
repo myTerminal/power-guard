@@ -65,11 +65,18 @@ To learn more about usage, refer to `manpage`:
 
 Being written with Common Lisp, *power-guard* depends on [SBCL](https://www.sbcl.org). In most cases, it will be automatically installed while generating the binary, but if it doesn't please install it before running the installation.
 
+*power-guard* also depends on the following programs:
+
+ - [find](https://man.archlinux.org/man/find.1.en)
+ - [cat](https://man.archlinux.org/man/cat.1.en)
+
 ## Optional External Dependencies
 
 Below are a few more optional dependencies that are also attempted to be fetched during the installation:
 
  - [beep](https://pkgs.org/search/?q=beep)
+ - [notify-send](https://man.archlinux.org/man/notify-send.1.en)
+ - [command](https://man.archlinux.org/man/command.1p.en)
 
  If not installed automatically, you may install them manually.
 
