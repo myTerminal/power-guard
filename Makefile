@@ -8,7 +8,7 @@ MANPREFIX := $(PREFIX)/share/man
 help:
 	@echo "Use a command!"
 
-sbcl:
+primary-deps:
 	@echo "Making sure SBCL is installed..."
 ifneq ($(shell command -v sbcl),)
 	@echo "SBCL found!"
@@ -24,8 +24,6 @@ else
 	@echo "Could not determine steps to install SBCL! Please install SBCL and try again."
 	exit 1
 endif
-
-primary-deps:
 	@echo "Looking for external dependencies..."
 ifeq ($(shell command -v find),)
 	@echo "'find' not found!"
@@ -76,7 +74,7 @@ ifneq ($(shell command -v runit),)
 	sudo ln -s /etc/sv/power-guard /var/service
 endif
 
-install: sbcl primary-deps optional-deps quicklisp binary place manpage service
+install: primary-deps optional-deps quicklisp binary place manpage service
 	@echo "power-guard is now installed."
 
 uninstall:
