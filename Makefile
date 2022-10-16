@@ -11,7 +11,7 @@ help:
 primary-deps:
 	@echo "Making sure SBCL is installed..."
 ifneq ($(shell command -v sbcl),)
-	@echo "SBCL found!"
+	@echo "SBCL found."
 else ifneq ($(shell command -v xbps-query),)
 	sudo xbps-install -Syu sbcl
 else ifneq ($(shell command -v pacman),)
@@ -33,11 +33,12 @@ ifeq ($(shell command -v cat),)
 	@echo "'cat' not found!"
 	exit 1
 endif
+	@echo "All required dependencies found."
 
 optional-deps:
 	@echo "Installing optional dependencies..."
 ifneq ($(shell command -v beep),)
-	@echo "'beep' found!"
+	@echo "'beep' found."
 else ifneq ($(shell command -v xbps-query),)
 	sudo xbps-install -Syu beep
 else ifneq ($(shell command -v beep),)
@@ -56,24 +57,30 @@ quicklisp:
 	sbcl --load ~/quicklisp/setup.lisp --non-interactive --eval "(ql:add-to-init-file)"
 
 binary:
-	@echo "Generating binary"
+	@echo "Generating binary..."
 	sbcl --non-interactive --load build.lisp
+	@echo "Binary generated."
 
 place:
-	@echo "Installing binary"
+	@echo "Installing binary..."
 	sudo install ./power-guard-bin $(PREFIX)/bin/power-guard
-	@echo "Binary installed!"
+	@echo "Binary installed."
 
 manpage:
 	@echo "Creating manpage..."
 	sudo rsync ./man/power-guard.1 $(MANPREFIX)/man1/
-	@echo "Manpage created!"
+	@echo "Manpage created."
 
 service:
+	@echo "Looking for a known init system..."
 ifneq ($(shell command -v runit),)
+	@echo "'Runit' found. Attempting to create a service..."
 	sudo mkdir /etc/sv/power-guard
 	sudo ln -s $(PREFIX)/bin/power-guard /etc/sv/power-guard/run
 	sudo ln -s /etc/sv/power-guard /var/service
+	@echo "Runit service created and started."
+else
+	@echo "No known init system found."
 endif
 
 install: primary-deps optional-deps quicklisp binary place manpage service
