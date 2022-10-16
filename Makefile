@@ -24,6 +24,17 @@ else
 	@echo "Could not determine steps to install SBCL! Please install SBCL and try again."
 endif
 
+primary-deps:
+	@echo "Looking for external dependencies..."
+ifeq ($(shell command -v find),)
+	@echo "'find' not found!"
+	exit 1
+endif
+ifeq ($(shell command -v cat),)
+	@echo "'cat' not found!"
+	exit 1
+endif
+
 optional-deps:
 	@echo "Installing optional dependencies..."
 ifneq ($(shell command -v xbps-query),)
@@ -64,7 +75,7 @@ ifneq ($(shell command -v runit),)
 	sudo ln -s /etc/sv/power-guard /var/service
 endif
 
-install: sbcl optional-deps quicklisp binary place manpage service
+install: sbcl primary-deps optional-deps quicklisp binary place manpage service
 	@echo "power-guard is now installed."
 
 uninstall:
