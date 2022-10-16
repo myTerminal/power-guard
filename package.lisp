@@ -34,7 +34,8 @@
   (:import-from :shell
                 :get-result-from-system
                 :get-list-from-system)
-  (:export :get-remaining-charge))
+  (:export :get-batteries
+           :get-remaining-charge))
 
 (defpackage :main
   (:use :cl)

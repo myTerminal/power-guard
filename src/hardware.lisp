@@ -3,6 +3,10 @@
 
 (in-package :hardware)
 
+(defun get-batteries ()
+  "Gets a list of batteries installed on the system."
+  (get-list-from-system "find /sys/class/power_supply -name \"BAT*\""))
+
 (defun get-battery-charges (batteries)
   "Get the remaining battery charges for all the batteries on the system."
   (mapcar (lambda (bat)
@@ -23,7 +27,7 @@
 
 (defun get-remaining-charge ()
   "Get the total remaining battery charge on the system."
-  (let* ((batteries (get-list-from-system "find /sys/class/power_supply -name \"BAT*\""))
+  (let* ((batteries (get-batteries))
          (remaining-charges (get-battery-charges batteries))
          (total-capacities (get-battery-capacities batteries)))
     (and remaining-charges
