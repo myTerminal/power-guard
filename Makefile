@@ -74,6 +74,7 @@ binary:
 place:
 	@echo "Installing binary..."
 	sudo install ./power-guard-bin $(PREFIX)/bin/power-guard
+	sudo install ./scripts/* $(PREFIX)/bin/
 	@echo "Binary installed."
 
 manpage:
@@ -98,7 +99,7 @@ install: primary-deps optional-deps quicklisp binary place manpage service
 
 uninstall:
 	@echo "Uninstalling foraget..."
-	sudo rm $(PREFIX)/bin/power-guard
+	sudo rm $(PREFIX)/bin/power-guard*
 	sudo rm $(MANPREFIX)/man1/power-guard.1
 	sudo rm -rf /var/service/power-guard
 	sudo rm -rf /etc/sv/power-guard

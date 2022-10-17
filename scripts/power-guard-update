@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+git clone https://github.com/myTerminal/power-guard /tmp/power-guard
+(cd /tmp/power-guard; make update)
+rm -rf /tmp/power-guard
