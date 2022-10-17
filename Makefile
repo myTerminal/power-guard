@@ -98,7 +98,7 @@ install: primary-deps optional-deps quicklisp binary place manpage service
 	@echo "power-guard is now installed."
 
 uninstall:
-	@echo "Uninstalling foraget..."
+	@echo "Uninstalling power-guard..."
 	sudo rm $(PREFIX)/bin/power-guard*
 	sudo rm $(MANPREFIX)/man1/power-guard.1
 	sudo rm -rf /var/service/power-guard
