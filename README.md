@@ -27,14 +27,6 @@ There are a few different ways to get *power-guard*.
     # Install with `make`
     make install
 
-Uninstalling would need only a single command:
-
-    make uninstall
-
-Re-installation is also possible with:
-
-    make reinstall
-
 ### Through a package manager
 
 *power-guard* will soon be available to install from your operating system's package manager.
@@ -61,14 +53,27 @@ To learn more about usage, refer to `manpage`:
 
     man power-guard
 
+## Updating
+
+In order to update *power-guard*, simply run:
+
+    power-guard-update
+
+## Uninstalling
+
+In order to uninstall *power-guard*, simply run:
+
+    power-guard-uninstall
+
 ## External Dependencies
 
 Being written with Common Lisp, *power-guard* depends on [SBCL](https://www.sbcl.org). In most cases, it will be automatically installed while generating the binary, but if it doesn't please install it before running the installation.
 
-*power-guard* also depends on the following programs:
+The other required programs are as follows:
 
  - [find](https://man.archlinux.org/man/find.1.en)
  - [cat](https://man.archlinux.org/man/cat.1.en)
+ - [command](https://man.archlinux.org/man/command.1p.en)
 
 ## Optional External Dependencies
 
@@ -76,9 +81,8 @@ Below are a few more optional dependencies that are also attempted to be fetched
 
  - [beep](https://pkgs.org/search/?q=beep)
  - [notify-send](https://man.archlinux.org/man/notify-send.1.en)
- - [command](https://man.archlinux.org/man/command.1p.en)
 
- If not installed automatically, you may install them manually.
+If not installed automatically, you may install them manually.
 
 ## To-do
 
