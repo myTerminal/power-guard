@@ -2,3 +2,4 @@
 
 git clone https://github.com/myTerminal/power-guard /tmp/power-guard
 (cd /tmp/power-guard; make uninstall)
+rm -rf /tmp/power-guard
