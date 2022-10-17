@@ -4,6 +4,7 @@ ifeq ($(PREFIX),)
     PREFIX := /usr/local
 endif
 MANPREFIX := $(PREFIX)/share/man
+QUICKLISP_DIR := ~/quicklisp
 
 help:
 	@echo "Use one of the following options:"
@@ -56,9 +57,14 @@ else
 endif
 
 quicklisp:
+ifeq ("$(wildcard $(QUICKLISP_DIR))", "")
+	@echo "Setting up Quicklisp..."
 	curl https://beta.quicklisp.org/quicklisp.lisp -o /tmp/quicklisp.lisp
 	sbcl --load /tmp/quicklisp.lisp --non-interactive --eval "(quicklisp-quickstart:install)"
 	sbcl --load ~/quicklisp/setup.lisp --non-interactive --eval "(ql:add-to-init-file)"
+else
+	@echo "Quicklisp found."
+endif
 
 binary:
 	@echo "Generating binary..."
