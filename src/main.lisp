@@ -7,7 +7,7 @@
   "Runs the monitoring routine."
   (if (< current-battery-charge battery-threshold)
       (progn
-        (execute-if-exists "beep" "-l 500")
+        (execute-if-exists "beep" "-l 200 -r 3 -d 200")
         (log-to-user "Power below set threshold! The system will now be suspended.")
         (suspend-system))
       (log-to-stdout "Power looks OK.")))
