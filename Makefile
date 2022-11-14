@@ -47,11 +47,11 @@ ifneq ($(shell command -v beep),)
 else ifneq ($(shell command -v xbps-query),)
 	sudo xbps-install -Syu beep
 else ifneq ($(shell command -v beep),)
-	sudo pacman -Sy sbcl
+	sudo pacman -Sy beep
 else ifneq ($(shell command -v beep),)
-	sudo dnf install -y sbcl
+	sudo dnf install -y beep
 else ifneq ($(shell command -v beep),)
-	sudo apt install -y sbcl
+	sudo apt install -y beep
 else
 	@echo "Could not install optional dependencies! Please install manually."
 endif
