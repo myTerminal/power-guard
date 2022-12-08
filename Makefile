@@ -6,6 +6,23 @@ endif
 MANPREFIX := $(PREFIX)/share/man
 QUICKLISP_DIR := ~/quicklisp
 
+define SYSTEMD_SERVICE_CONTENTS
+[Unit]
+Description=power-guard service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=$(PREFIX)/bin/power-guard
+
+[Install]
+WantedBy=multi-user.target
+endef
+export SYSTEMD_SERVICE_CONTENTS
+
 help:
 	@echo "Use one of the following options:"
 	@echo " - install"
@@ -90,6 +107,12 @@ ifneq ($(shell command -v runit),)
 	sudo ln -s $(PREFIX)/bin/power-guard /etc/sv/power-guard/run
 	sudo ln -s /etc/sv/power-guard /var/service
 	@echo "Runit service created and started."
+else ifneq ($(shell command -v systemctl),)
+	@echo "'SystemD' found. Attempting to create a service..."
+	@echo "$$SYSTEMD_SERVICE_CONTENTS" | sudo tee /etc/systemd/system/power-guard.service
+	systemctl enable power-guard.service
+	systemctl start power-guard.service
+	@echo "SystemD service created and started."
 else
 	@echo "No known init system found."
 endif
@@ -101,8 +124,14 @@ uninstall:
 	@echo "Uninstalling power-guard..."
 	sudo rm $(PREFIX)/bin/power-guard*
 	sudo rm $(MANPREFIX)/man1/power-guard.1
+ifneq ($(shell command -v runit),)
 	sudo rm -rf /var/service/power-guard
 	sudo rm -rf /etc/sv/power-guard
+else ifneq ($(shell command -v systemctl),)
+	systemctl stop power-guard.service
+	systemctl disable power-guard.service
+	sudo rm -rf /etc/systemd/system/power-guard.service
+endif
 	@echo "power-guard has been uninstalled."
 
 reinstall: uninstall install

@@ -89,4 +89,4 @@ If not installed automatically, you may install them manually.
 * Improve battery-watching algorithm
 * Improve reading of battery level, add support for more hardware types
 * Implement alternate methods of suspending the system
-* Add support for more init systems like SystemD, OpenRC, SysVinit, etc.
+* Add support for more init systems like OpenRC, SysVinit, etc.
