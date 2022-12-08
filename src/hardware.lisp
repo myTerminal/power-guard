@@ -39,3 +39,8 @@
                       (reduce (lambda (a b)
                                 (+ a b))
                               total-capacities)))))))
+
+(defun ac-power-connected-p ()
+  "Gets whether the AC power has been connected to the system."
+  (string-equal (get-result-from-system "cat /sys/class/power_supply/AC/online")
+                "1"))

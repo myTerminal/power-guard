@@ -35,7 +35,8 @@
                 :get-result-from-system
                 :get-list-from-system)
   (:export :get-batteries
-           :get-remaining-charge))
+           :get-remaining-charge
+           :ac-power-connected-p))
 
 (defpackage :main
   (:use :cl)
@@ -48,5 +49,6 @@
                 :suspend-system)
   (:import-from :hardware
                 :get-batteries
-                :get-remaining-charge)
+                :get-remaining-charge
+                :ac-power-connected-p)
   (:export :main))
