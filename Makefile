@@ -1,7 +1,7 @@
 SHELL = /bin/sh
 
 ifeq ($(PREFIX),)
-    PREFIX := /usr/local
+	PREFIX := /usr/local
 endif
 MANPREFIX := $(PREFIX)/share/man
 QUICKLISP_DIR := ~/quicklisp
@@ -20,11 +20,11 @@ ifneq ($(shell command -v sbcl),)
 else ifneq ($(shell command -v xbps-query),)
 	sudo xbps-install -Syu sbcl
 else ifneq ($(shell command -v pacman),)
-    sudo pacman -Sy sbcl
+	sudo pacman -Sy sbcl
 else ifneq ($(shell command -v dnf),)
-    sudo dnf install -y sbcl
+	sudo dnf install -y sbcl
 else ifneq ($(shell command -v apt),)
-    sudo apt install -y sbcl
+	sudo apt install -y sbcl
 else
 	@echo "Could not determine steps to install SBCL! Please install SBCL and try again."
 	exit 1
