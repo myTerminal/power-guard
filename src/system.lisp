@@ -13,8 +13,6 @@
 
 (defun suspend-system ()
   "Performs a system suspend."
-  (cond ((exists-in-system-p "systemctl")
-         (execute-in-system "systemctl suspend"))
-        ((exists-in-system-p "loginctl")
-         (execute-in-system "loginctl suspend"))
-        (t (log-to-user "Could not suspend the system! Please suspend manually."))))
+  (or (execute-if-exists "systemctl" "suspend")
+      (execute-if-exists "loginctl" "suspend")
+      (log-to-user "Could not suspend the system! Please suspend manually.")))
