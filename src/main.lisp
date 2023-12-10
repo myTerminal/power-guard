@@ -8,7 +8,7 @@
   (if (and (< current-battery-charge battery-threshold)
            (not (ac-power-connected-p)))
       (progn
-        (execute-if-exists "beep" "-l 200 -r 3 -d 200")
+        (play-audible-warning)
         (log-to-user "Power below set threshold! The system will now be suspended.")
         (suspend-system))
       (log-to-stdout "Power looks OK.")))

@@ -11,6 +11,10 @@
                                   message
                                   "'")))
 
+(defun play-audible-warning ()
+  "Plays audible warning."
+  (execute-if-exists "beep" "-l 200 -r 3 -d 200"))
+
 (defun suspend-system ()
   "Performs a system suspend."
   (or (execute-if-exists "systemctl" "suspend")

@@ -27,6 +27,7 @@
   (:import-from :interface
                 :log-to-user)
   (:export :log-to-system
+           :play-audible-warning
            :suspend-system))
 
 (defpackage :hardware
@@ -46,6 +47,7 @@
   (:import-from :interface
                 :log-to-user)
   (:import-from :system
+                :play-audible-warning
                 :suspend-system)
   (:import-from :hardware
                 :get-batteries
