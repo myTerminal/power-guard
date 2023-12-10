@@ -3,11 +3,15 @@
 
 (in-package :interface)
 
-(defun log-to-user (message)
-  "Shows message in form of all possible media."
-  (log-to-stdout message)
+(defun notify-thru-gui (message)
+  "Draws a notification message graphically."
   (execute-if-exists "notify-send"
                      (concatenate 'string
                                   " \""
                                   message
                                   "\"")))
+
+(defun log-to-user (message)
+  "Shows message in form of all possible media."
+  (log-to-stdout message)
+  (notify-thru-gui message))
