@@ -47,6 +47,7 @@
   (:import-from :interface
                 :log-to-user)
   (:import-from :system
+                :log-to-system
                 :play-audible-warning
                 :suspend-system)
   (:import-from :hardware

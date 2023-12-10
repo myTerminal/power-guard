@@ -10,8 +10,9 @@
       (progn
         (play-audible-warning)
         (log-to-user "Power below set threshold! The system will now be suspended.")
+        (log-to-system "System needs to be suspend.")
         (suspend-system))
-      (log-to-stdout "Power looks OK.")))
+      (log-to-system "Power looks OK.")))
 
 (defun main ()
   "The main entry point to the program."
@@ -40,7 +41,7 @@
        (run-check current-battery-level
                   battery-threshold) ; Run check
        (setf previous-battery-level current-battery-level) ; Store back current level
-       (log-to-stdout (concatenate 'string
+       (log-to-system (concatenate 'string
                                    "Will check after "
                                    (write-to-string sleep-timer)
                                    " seconds..."))
