@@ -24,10 +24,12 @@
   (:use :cl)
   (:import-from :shell
                 :execute-in-system
-                :exists-in-system-p)
+                :exists-in-system-p
+                :execute-if-exists)
   (:import-from :interface
                 :log-to-user)
-  (:export :suspend-system))
+  (:export :log-to-system
+           :suspend-system))
 
 (defpackage :hardware
   (:use :cl)
