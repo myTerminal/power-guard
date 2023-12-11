@@ -8,16 +8,8 @@
   (if (and (< current-battery-charge battery-threshold)
            (not (ac-power-connected-p)))
       (if (cdr batteries)
-          (progn
-            (play-audible-warning)
-            (log-to-user "Power below set threshold! The system will now go into hibernation.")
-            (log-to-system "System needs to be hibernated.")
-            (hibernate-system))
-          (progn
-            (play-audible-warning)
-            (log-to-user "Power below set threshold! The system will now be suspended.")
-            (log-to-system "System needs to be suspended.")
-            (suspend-system)))
+          (hibernate-system)
+          (suspend-system))
       (log-to-system "Power looks OK.")))
 
 (defun main ()

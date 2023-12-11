@@ -17,6 +17,9 @@
 
 (defun suspend-system ()
   "Performs a system suspend."
+  (play-audible-warning)
+  (log-to-user "Power below set threshold! The system will now be suspended.")
+  (log-to-system "System needs to be suspended.")
   (cond ((exists-in-system-p "systemctl")
          (execute-in-system "systemctl suspend"))
         ((exists-in-system-p "loginctl")
@@ -25,6 +28,9 @@
 
 (defun hibernate-system ()
   "Performs a system hibernate."
+  (play-audible-warning)
+  (log-to-user "Power below set threshold! The system will now go into hibernation.")
+  (log-to-system "System needs to be hibernated.")
   (cond ((exists-in-system-p "systemctl")
          (execute-in-system "systemctl hibernate"))
         ((exists-in-system-p "loginctl")

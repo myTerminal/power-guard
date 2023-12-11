@@ -45,13 +45,9 @@
 (defpackage :main
   (:use :cl)
   (:import-from :shell
-                :log-to-stdout
-                :execute-if-exists)
-  (:import-from :interface
-                :log-to-user)
+                :log-to-stdout)
   (:import-from :system
                 :log-to-system
-                :play-audible-warning
                 :suspend-system
                 :hibernate-system)
   (:import-from :hardware
