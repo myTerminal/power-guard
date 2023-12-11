@@ -12,6 +12,10 @@ Continuing to use your computer when the battery charge is critically low could 
 
 *power-guard* provides a simple command to fill in the gap by keeping a watch over the remaining battery charge and automatically suspending (or hibernating) your system to protect your battery from damage. You may also run it as a service with supported init systems.
 
+### Suspend vs Hibernate
+
+*power-guard* usually prefers `suspend` over `hibernate`, but performs the latter when there is more than one battery equipped. This could be handy in the absence of charging points nearby and the user can quickly swap the discharged battery with a charged one and resume working without turning the computer off.
+
 ## Installation
 
 There are a few different ways to get *power-guard*.
