@@ -17,12 +17,16 @@
 
 (defun suspend-system ()
   "Performs a system suspend."
-  (or (execute-if-exists "systemctl" "suspend")
-      (execute-if-exists "loginctl" "suspend")
-      (log-to-user "Could not suspend the system! Please suspend manually.")))
+  (cond ((exists-in-system-p "systemctl")
+         (execute-in-system "systemctl suspend"))
+        ((exists-in-system-p "loginctl")
+         (execute-in-system "loginctl suspend"))
+        (t (log-to-user "Could not suspend the system! Please suspend manually."))))
 
 (defun hibernate-system ()
   "Performs a system hibernate."
-  (or (execute-if-exists "systemctl" "hibernate")
-      (execute-if-exists "loginctl" "hibernate")
-      (log-to-user "Could not hibernate the system! Please hibernate manually.")))
+  (cond ((exists-in-system-p "systemctl")
+         (execute-in-system "systemctl hibernate"))
+        ((exists-in-system-p "loginctl")
+         (execute-in-system "loginctl hibernate"))
+        (t (log-to-user "Could not hibernate the system! Please hibernate manually."))))

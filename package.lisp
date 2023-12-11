@@ -23,6 +23,8 @@
 (defpackage :system
   (:use :cl)
   (:import-from :shell
+                :execute-in-system
+                :exists-in-system-p
                 :execute-if-exists)
   (:import-from :interface
                 :log-to-user)
