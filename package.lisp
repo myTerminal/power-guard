@@ -28,7 +28,8 @@
                 :log-to-user)
   (:export :log-to-system
            :play-audible-warning
-           :suspend-system))
+           :suspend-system
+           :hibernate-system))
 
 (defpackage :hardware
   (:use :cl)
@@ -49,7 +50,8 @@
   (:import-from :system
                 :log-to-system
                 :play-audible-warning
-                :suspend-system)
+                :suspend-system
+                :hibernate-system)
   (:import-from :hardware
                 :get-batteries
                 :get-remaining-charge

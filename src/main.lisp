@@ -3,15 +3,21 @@
 
 (in-package :main)
 
-(defun run-check (current-battery-charge battery-threshold)
+(defun run-check (batteries current-battery-charge battery-threshold)
   "Runs the monitoring routine."
   (if (and (< current-battery-charge battery-threshold)
            (not (ac-power-connected-p)))
-      (progn
-        (play-audible-warning)
-        (log-to-user "Power below set threshold! The system will now be suspended.")
-        (log-to-system "System needs to be suspend.")
-        (suspend-system))
+      (if (cdr batteries)
+          (progn
+            (play-audible-warning)
+            (log-to-user "Power below set threshold! The system will now go into hibernation.")
+            (log-to-system "System needs to be hibernated.")
+            (hibernate-system))
+          (progn
+            (play-audible-warning)
+            (log-to-user "Power below set threshold! The system will now be suspended.")
+            (log-to-system "System needs to be suspended.")
+            (suspend-system)))
       (log-to-system "Power looks OK.")))
 
 (defun main ()
@@ -38,7 +44,8 @@
       (loop
        (fetch-battery-level) ; Poll for remaining battery charge
        (adjust-timer) ; Adapt timer according to the current level
-       (run-check current-battery-level
+       (run-check (get-batteries)
+                  current-battery-level
                   battery-threshold) ; Run check
        (setf previous-battery-level current-battery-level) ; Store back current level
        (log-to-system (concatenate 'string

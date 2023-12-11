@@ -20,3 +20,9 @@
   (or (execute-if-exists "systemctl" "suspend")
       (execute-if-exists "loginctl" "suspend")
       (log-to-user "Could not suspend the system! Please suspend manually.")))
+
+(defun hibernate-system ()
+  "Performs a system hibernate."
+  (or (execute-if-exists "systemctl" "hibernate")
+      (execute-if-exists "loginctl" "hibernate")
+      (log-to-user "Could not hibernate the system! Please hibernate manually.")))
