@@ -13,6 +13,7 @@
         (log-to-stdout "No batteries installed on the system!")
         (uiop:quit)))
 
+    ;; Proceed with the available batteries
     (let* ((args (uiop:command-line-arguments))
            (battery-threshold (parse-integer (or (car args)
                                                  "10")))
