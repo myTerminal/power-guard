@@ -20,7 +20,7 @@
            (current-battery-level 50)
            (previous-battery-level 50)
            (sleep-delay 15))
-      (labels ((get-new-sleep-delay ()
+      (labels ((get-new-sleep-delay (sleep-delay current-battery-level previous-battery-level)
                  (if (< current-battery-level previous-battery-level)
                      15 ; Speed back timer
                      (if (< sleep-delay 60)
@@ -43,7 +43,9 @@
                     battery-threshold)
          ;; Adapt timer according to the current level
          (setf sleep-delay
-               (get-new-sleep-delay))
+               (get-new-sleep-delay sleep-delay
+                                    current-battery-level
+                                    previous-battery-level))
          ;; Record current battery level for future reference
          (setf previous-battery-level current-battery-level)
          ;; Log about the next check
