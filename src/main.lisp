@@ -20,7 +20,7 @@
            (current-charge 50)
            (previous-charge 50)
            (sleep-delay 15))
-      (labels ((charge-low-p (batteries current-charge charge-threshold)
+      (labels ((charge-low-p (current-charge charge-threshold)
                  (and (not (ac-power-connected-p))
                       (< current-charge charge-threshold)))
                (get-new-sleep-delay (c p)
@@ -33,8 +33,7 @@
          (setf current-charge
                (get-remaining-charge))
          ;; Perform check, halt if needed
-         (if (charge-low-p batteries
-                           current-charge
+         (if (charge-low-p current-charge
                            charge-threshold)
              (halt-system batteries)
              (log-to-system "Power looks OK."))
