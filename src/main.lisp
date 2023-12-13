@@ -19,10 +19,7 @@
            (current-battery-level 50)
            (previous-battery-level 50)
            (sleep-timer 15))
-      (labels ((fetch-battery-level ()
-                 (setf current-battery-level
-                       (get-remaining-charge))) ; Stores the current battery-level
-               (adjust-timer ()
+      (labels ((adjust-timer ()
                  ;; Check if the level has dropped
                  (if (< current-battery-level previous-battery-level)
                      (and (setf sleep-timer 15)) ; Speed back timer
@@ -36,7 +33,9 @@
                          (suspend-system))
                      (log-to-system "Power looks OK."))))
         (loop
-         (fetch-battery-level) ; Poll for remaining battery charge
+         ;; Read remaining battery charge
+         (setf current-battery-level
+               (get-remaining-charge))
          (adjust-timer) ; Adapt timer according to the current level
          (run-check batteries
                     current-battery-level
