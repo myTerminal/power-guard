@@ -23,12 +23,11 @@
       (labels ((charge-low-p (batteries current-charge charge-threshold)
                  (and (not (ac-power-connected-p))
                       (< current-charge charge-threshold)))
-               (get-new-sleep-delay (delay current-charge previous-charge)
-                 (if (< current-charge previous-charge)
-                     15
-                     (if (< delay 60)
-                         (+ delay 5)
-                         delay))))
+               (get-new-sleep-delay (c p)
+                 (cond ((>= (- p c) 3) 10) ; Charge dropped by 3% or more
+                       ((< c 20) 10) ; Charge is below 20%
+                       ((>= c 100) 50) ; Battery if fully charged
+                       (t (round (/ c 2))))))
         (loop
          ;; Read remaining battery charge
          (setf current-charge
@@ -41,8 +40,7 @@
              (log-to-system "Power looks OK."))
          ;; Adapt timer according to the current level
          (setf sleep-delay
-               (get-new-sleep-delay sleep-delay
-                                    current-charge
+               (get-new-sleep-delay current-charge
                                     previous-charge))
          ;; Record current battery level for future reference
          (setf previous-charge current-charge)
