@@ -30,8 +30,7 @@
                 :log-to-user)
   (:export :log-to-system
            :play-audible-warning
-           :suspend-system
-           :hibernate-system))
+           :halt-system))
 
 (defpackage :hardware
   (:use :cl)
@@ -48,8 +47,7 @@
                 :log-to-stdout)
   (:import-from :system
                 :log-to-system
-                :suspend-system
-                :hibernate-system)
+                :halt-system)
   (:import-from :hardware
                 :get-batteries
                 :get-remaining-charge

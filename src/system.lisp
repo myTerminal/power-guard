@@ -36,3 +36,9 @@
         ((exists-in-system-p "loginctl")
          (execute-in-system "loginctl hibernate"))
         (t (log-to-user "Could not hibernate the system! Please hibernate manually."))))
+
+(defun halt-system (batteries)
+  "Puts system to suspend or hibernate depending on the number of batteries."
+  (if (cdr batteries)
+      (hibernate-system)
+      (suspend-system)))
