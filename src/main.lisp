@@ -36,14 +36,18 @@
          ;; Read remaining battery charge
          (setf current-battery-level
                (get-remaining-charge))
-         (adjust-timer) ; Adapt timer according to the current level
+         ;; Perform check
          (run-check batteries
                     current-battery-level
-                    battery-threshold) ; Run check
-         (setf previous-battery-level current-battery-level) ; Store back current level
+                    battery-threshold)
+         ;; Adapt timer according to the current level
+         (adjust-timer)
+         ;; Record current battery level for future reference
+         (setf previous-battery-level current-battery-level)
+         ;; Log about the next check
          (log-to-system (concatenate 'string
                                      "Will check after "
                                      (write-to-string sleep-timer)
                                      " seconds..."))
-         ;; Sleep for a while
+         ;; Sleep until the next check
          (sleep sleep-timer))))))
