@@ -20,19 +20,19 @@
            (current-charge 50)
            (previous-charge 50)
            (sleep-delay 15))
-      (labels ((get-new-sleep-delay (delay current-charge previous-charge)
-                 (if (< current-charge previous-charge)
-                     15 ; Drop delay
-                     (if (< delay 60)
-                         (+ delay 5)
-                         delay))) ; Increase delay
-               (run-check (batteries current-charge charge-threshold)
+      (labels ((run-check (batteries current-charge charge-threshold)
                  (if (and (< current-charge charge-threshold)
                           (not (ac-power-connected-p)))
                      (if (cdr batteries)
                          (hibernate-system)
                          (suspend-system))
-                     (log-to-system "Power looks OK."))))
+                     (log-to-system "Power looks OK.")))
+               (get-new-sleep-delay (delay current-charge previous-charge)
+                 (if (< current-charge previous-charge)
+                     15
+                     (if (< delay 60)
+                         (+ delay 5)
+                         delay))))
         (loop
          ;; Read remaining battery charge
          (setf current-charge
