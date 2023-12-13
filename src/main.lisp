@@ -3,15 +3,6 @@
 
 (in-package :main)
 
-(defun run-check (batteries current-battery-charge battery-threshold)
-  "Runs the monitoring routine."
-  (if (and (< current-battery-charge battery-threshold)
-           (not (ac-power-connected-p)))
-      (if (cdr batteries)
-          (hibernate-system)
-          (suspend-system))
-      (log-to-system "Power looks OK.")))
-
 (defun main ()
   "The main entry point to the program."
   (let ((batteries (get-batteries)))
@@ -36,7 +27,14 @@
                  (if (< current-battery-level previous-battery-level)
                      (and (setf sleep-timer 15)) ; Speed back timer
                      (and (< sleep-timer 60) (setf sleep-timer
-                                                   (+ sleep-timer 5)))))) ; Slow down timer
+                                                   (+ sleep-timer 5))))) ; Slow down timer
+               (run-check (batteries current-battery-charge battery-threshold)
+                 (if (and (< current-battery-charge battery-threshold)
+                          (not (ac-power-connected-p)))
+                     (if (cdr batteries)
+                         (hibernate-system)
+                         (suspend-system))
+                     (log-to-system "Power looks OK."))))
         (loop
          (fetch-battery-level) ; Poll for remaining battery charge
          (adjust-timer) ; Adapt timer according to the current level
