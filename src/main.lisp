@@ -15,10 +15,13 @@
 (defun main ()
   "The main entry point to the program."
   (let ((batteries (get-batteries)))
+
+    ;; In case of no batteries, quit
     (unless batteries
       (progn
         (log-to-stdout "No batteries installed on the system!")
         (uiop:quit)))
+
     (let* ((args (uiop:command-line-arguments))
            (battery-threshold (parse-integer (or (car args)
                                                  "10")))
@@ -27,7 +30,7 @@
            (sleep-timer 15))
       (labels ((fetch-battery-level ()
                  (setf current-battery-level
-                       (get-remaining-charge))) ;; Stores the current battery-level
+                       (get-remaining-charge))) ; Stores the current battery-level
                (adjust-timer ()
                  ;; Check if the level has dropped
                  (if (< current-battery-level previous-battery-level)
