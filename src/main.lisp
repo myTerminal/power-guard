@@ -18,13 +18,13 @@
                                                  "10")))
            (current-battery-level 50)
            (previous-battery-level 50)
-           (sleep-timer 15))
-      (labels ((adjust-timer ()
-                 ;; Check if the level has dropped
+           (sleep-delay 15))
+      (labels ((get-new-sleep-delay ()
                  (if (< current-battery-level previous-battery-level)
-                     (and (setf sleep-timer 15)) ; Speed back timer
-                     (and (< sleep-timer 60) (setf sleep-timer
-                                                   (+ sleep-timer 5))))) ; Slow down timer
+                     15 ; Speed back timer
+                     (if (< sleep-delay 60)
+                         (+ sleep-delay 5)
+                         sleep-delay))) ; Slow down timer
                (run-check (batteries current-battery-charge battery-threshold)
                  (if (and (< current-battery-charge battery-threshold)
                           (not (ac-power-connected-p)))
@@ -41,13 +41,14 @@
                     current-battery-level
                     battery-threshold)
          ;; Adapt timer according to the current level
-         (adjust-timer)
+         (setf sleep-delay
+               (get-new-sleep-delay))
          ;; Record current battery level for future reference
          (setf previous-battery-level current-battery-level)
          ;; Log about the next check
          (log-to-system (concatenate 'string
                                      "Will check after "
-                                     (write-to-string sleep-timer)
+                                     (write-to-string sleep-delay)
                                      " seconds..."))
          ;; Sleep until the next check
-         (sleep sleep-timer))))))
+         (sleep sleep-delay))))))
