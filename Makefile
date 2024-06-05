@@ -40,7 +40,7 @@ ifneq ($(shell command -v sbcl),)
 	@echo "SBCL found."
 else
 	@echo "SBCL not found!"
-	@echo "Attemping to install SBCL using Crater..."
+	@echo "Attempting to install SBCL using Crater..."
 	/tmp/crater-cli/crater install sbcl
 endif
 	@echo "Looking for external dependencies..."
@@ -60,7 +60,7 @@ ifneq ($(shell command -v beep),)
 	@echo "'beep' found."
 else
 	@echo "'beep' not found!"
-	@echo "Attemping to install 'beep' using Crater..."
+	@echo "Attempting to install 'beep' using Crater..."
 	/tmp/crater-cli/crater install beep
 endif
 
