@@ -18,12 +18,18 @@
 
 (defun get-battery-charges (batteries)
   "Get the remaining battery charges for all the batteries on the system."
-  (mapcar (lambda (bat)
-            (parse-integer (get-result-from-system (concatenate 'string
-                                                                "cat "
-                                                                bat
-                                                                "/energy_now"))))
-          batteries))
+  (loop for bat in batteries
+        for energy_now = (get-result-from-system (concatenate 'string
+                                                              "cat "
+                                                              bat
+                                                              "/energy_now"))
+        for charge = (parse-integer energy_now :junk-allowed t)
+        if charge
+        collect charge into charges
+        else do (error 'expected-numeric-charge-value
+                       :battery bat
+                       :value energy_now)
+        finally (return charges)))
 
 (defun get-battery-capacities (batteries)
   "Get the total battery capacities for all the batteries on the system."
