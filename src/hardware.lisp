@@ -3,6 +3,15 @@
 
 (in-package :hardware)
 
+(define-condition expected-numeric-charge-value (error)
+  ((battery :initarg :battery :initform nil :reader battery-read)
+   (value :initarg :value :initform nil :reader value-read))
+  (:documentation "This should be signalled with a failed attempt to use a charge value as an integer.")
+  (:report (lambda (condition stream)
+             (format stream "Failed attempt to use charge value ~A from battery ~S."
+                     (value-read condition)
+                     (battery-read condition)))))
+
 (defun get-batteries ()
   "Gets a list of batteries installed on the system."
   (get-list-from-system "find /sys/class/power_supply -name \"BAT*\""))
