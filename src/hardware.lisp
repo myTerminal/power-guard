@@ -3,18 +3,33 @@
 
 (in-package :hardware)
 
+(define-condition expected-numeric-charge-value (error)
+  ((battery :initarg :battery :initform nil :reader battery-read)
+   (value :initarg :value :initform nil :reader value-read))
+  (:documentation "This should be signalled with a failed attempt to use a charge value as an integer.")
+  (:report (lambda (condition stream)
+             (format stream "Failed attempt to use charge value ~A from battery ~S."
+                     (value-read condition)
+                     (battery-read condition)))))
+
 (defun get-batteries ()
   "Gets a list of batteries installed on the system."
   (get-list-from-system "find /sys/class/power_supply -name \"BAT*\""))
 
 (defun get-battery-charges (batteries)
   "Get the remaining battery charges for all the batteries on the system."
-  (mapcar (lambda (bat)
-            (parse-integer (get-result-from-system (concatenate 'string
-                                                                "cat "
-                                                                bat
-                                                                "/energy_now"))))
-          batteries))
+  (loop for bat in batteries
+        for energy_now = (get-result-from-system (concatenate 'string
+                                                              "cat "
+                                                              bat
+                                                              "/energy_now"))
+        for charge = (parse-integer energy_now :junk-allowed t)
+        if charge
+        collect charge into charges
+        else do (error 'expected-numeric-charge-value
+                       :battery bat
+                       :value energy_now)
+        finally (return charges)))
 
 (defun get-battery-capacities (batteries)
   "Get the total battery capacities for all the batteries on the system."
